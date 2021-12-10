@@ -11,4 +11,7 @@ Obtain an API key and replace the YOUR_KEY placeholders in
 - android/app/src/main/AndroidManifest.xml
 - lib/services/places_service.dart
 
+# Preview
+![Preview Image](assets/screenshort/gif/CRS.gif)
+[Download Adobe XD scratch file](assets/scratch/vrs.xd)
 
