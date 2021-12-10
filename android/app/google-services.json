@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "985955350174",
+    "project_id": "creativereservationsystem",
+    "storage_bucket": "creativereservationsystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985955350174:android:49bb2185c0dbd6b50bad8f",
+        "android_client_info": {
+          "package_name": "com.example.creative_reservation_system"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985955350174-lf7b9rs4b54vmanqubb17kjbjbljasa6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.creative_reservation_system",
+            "certificate_hash": "f77ac79b2181e4f59638beb7164955535b45f1b6"
+          }
+        },
+        {
+          "client_id": "985955350174-n6vpp7p8tqcgkf4re4lj5vl945f04im7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrv6kpBwifqkZ0gEji6uHXd5gykpG_lQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985955350174-n6vpp7p8tqcgkf4re4lj5vl945f04im7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

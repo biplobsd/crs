@@ -1,16 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:creative_reservation_system/src/adobe_xd_screen/Signup.dart';
-import 'package:creative_reservation_system/src/screens/home_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:creative_reservation_system/src/adobe_xd_screen/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Login extends StatelessWidget {
-  Login({
+class Signup extends StatelessWidget {
+  Signup({
     Key key,
   }) : super(key: key);
   // form key
@@ -18,10 +14,10 @@ class Login extends StatelessWidget {
 
   // editing controller
   final TextEditingController emailController = new TextEditingController();
+  final TextEditingController nameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-
-  final _auth = FirebaseAuth.instance;
-  var errorMessage;
+  final TextEditingController confirmPasswordController =
+      new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +28,10 @@ class Login extends StatelessWidget {
         statusBarColor: Color(0xbd4085fc),
       ),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xbd4085fc),
+          elevation: 0,
+        ),
         body: SafeArea(
           child: Stack(
             alignment: AlignmentDirectional.topCenter,
@@ -59,7 +59,7 @@ class Login extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 70,
+                      height: 17,
                     ),
                     Text(
                       'WELCOME TO',
@@ -80,12 +80,12 @@ class Login extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: 100,
+                      height: 30,
                     ),
                     Text(
-                      'Login to your account',
+                      'Signup',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 15,
                         color: const Color(0xdbffffff),
                         letterSpacing: 2.25,
                       ),
@@ -93,8 +93,36 @@ class Login extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(35, 10, 35, 0),
-                      child: Stack(
+                      child: Column(
                         children: <Widget>[
+                          Container(
+                            height: 45,
+                            alignment: Alignment.center,
+                            child: TextFormField(
+                              autofocus: false,
+                              controller: nameController,
+                              keyboardType: TextInputType.name,
+                              onSaved: (value) {
+                                nameController.text = value;
+                              },
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25.0)),
+                                prefixIcon: Icon(Icons.account_circle),
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                hintText: "Full name",
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25.0),
+                              color: const Color(0x4affffff),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             height: 45,
                             alignment: Alignment.center,
@@ -124,7 +152,7 @@ class Login extends StatelessWidget {
                                 prefixIcon: Icon(Icons.mail),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                hintText: "Email address or Phone number",
+                                hintText: "Email",
                               ),
                             ),
                             decoration: BoxDecoration(
@@ -132,13 +160,9 @@ class Login extends StatelessWidget {
                               color: const Color(0x4affffff),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(35, 10, 35, 0),
-                      child: Stack(
-                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             height: 45,
                             alignment: Alignment.center,
@@ -158,12 +182,49 @@ class Login extends StatelessWidget {
                                 onSaved: (value) {
                                   passwordController.text = value;
                                 },
-                                textInputAction: TextInputAction.done,
+                                textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.vpn_key),
                                   contentPadding:
                                       EdgeInsets.fromLTRB(20, 15, 20, 15),
                                   hintText: "Password",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                )),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25.0),
+                              color: const Color(0x4affffff),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 45,
+                            alignment: Alignment.center,
+                            child: TextFormField(
+                                autofocus: false,
+                                controller: confirmPasswordController,
+                                obscureText: true,
+                                validator: (value) {
+                                  RegExp regex = new RegExp(r'^.{6,}$');
+                                  if (value.isEmpty) {
+                                    return ("Password is required for login");
+                                  }
+                                  if (!regex.hasMatch(value)) {
+                                    return ("Enter Valid Password(Min. 6 Character)");
+                                  }
+                                },
+                                onSaved: (value) {
+                                  confirmPasswordController.text = value;
+                                },
+                                textInputAction: TextInputAction.done,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.vpn_key),
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                  hintText: "Confirm Password",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(25),
                                   ),
@@ -192,11 +253,19 @@ class Login extends StatelessWidget {
                             width: 20,
                           ),
                           Text(
-                            'Remember Me',
+                            'I agree to all',
                             style: TextStyle(
                               fontFamily: 'Times New Roman',
                               fontSize: 15,
                               color: const Color(0xc2ffffff),
+                              letterSpacing: 0.75,
+                            ),
+                          ),
+                          Text(
+                            ' Terms & Services',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.deepPurple,
                               letterSpacing: 0.75,
                             ),
                           ),
@@ -209,12 +278,11 @@ class Login extends StatelessWidget {
                         width: 300,
                         height: 60,
                         child: MaterialButton(
-                          onPressed: () => signIn(context, emailController.text,
-                              passwordController.text),
+                          onPressed: () {},
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 17),
                             child: Text(
-                              'Login',
+                              'Signup',
                               style: TextStyle(
                                 fontSize: 20,
                                 color: const Color(0xabffffff),
@@ -247,7 +315,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 60,
+                      height: 15,
                     ),
                     Column(
                       children: [
@@ -255,7 +323,7 @@ class Login extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Text(
-                              'Don\'t have an account ?',
+                              'Already have an account?',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: const Color(0xdbffffff),
@@ -269,10 +337,10 @@ class Login extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Signup()));
+                                        builder: (context) => Login()));
                               },
                               child: Text(
-                                'Sign Up',
+                                'Login now',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -364,46 +432,6 @@ class Login extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void signIn(BuildContext context, String email, String password) async {
-    if (_formKey.currentState.validate()) {
-      try {
-        await _auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {
-                  Fluttertoast.showToast(msg: "Login Successful"),
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomeScreen())),
-                });
-      } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
-
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Too many requests";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage = "An undefined Error happened.";
-        }
-        Fluttertoast.showToast(msg: errorMessage);
-        print(error.code);
-      }
-    }
   }
 }
 

@@ -33,6 +33,11 @@ dependencies:
   http: ^0.12.2
   google_maps_flutter: ^1.2.0
   adobe_xd: ^2.0.0+1
+  cloud_firestore: ^0.16.0+1
+  firebase_auth: ^0.20.1
+  firebase_core: ^0.7.0
+  toast: ^0.1.5
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
