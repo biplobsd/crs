@@ -9,7 +9,8 @@
         tools:replace="android:label"
         android:name="io.flutter.app.FlutterApplication"
         android:label="creative_reservation_system"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -46,6 +47,7 @@
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
                    android:value="AIzaSyCKOj444Z0VkD_FG_L9TU4ddE2Z19r0Qa8"/>
+        
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>
